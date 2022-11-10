@@ -1,60 +1,44 @@
-import Box from '@mui/material/Box';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import Divider from '@mui/material/Divider';
-import deathstar from '../../assets/deathstar.png'
-import { Avatar } from '@mui/material';
+// import { Button, Box, Card, CardHeader, Avatar, Modal, Typography, InputLabel, TextField } from '@mui/material';
+// import { useState } from 'react';
 
-const characters = [
-    {name: "Daniel"},
-    {name: "Antonio"},
-    {name: "Laura"},
-    {name: "Paulette"},
-    {name: "Jeremy"},
-    {name: "Sam"}
-]
+// export default function CharacterList(character: <person>, style: []) {
+//     const [open, setOpen] = useState(false);
+//     const handleOpen = () => setOpen(true);
+//     const handleClose = () => setOpen(false);
 
-export default function CharacterList() {
-  return (
-    <Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-      <nav aria-label="main folders">
-        <List>
-            {characters.map(character => {
-                return (
-                    <ListItem disablePadding>
-                    <ListItemButton>
-                      <ListItemIcon>
-                      <Avatar alt="death star" src={deathstar} />
-                      </ListItemIcon>
-                      <ListItemText primary={character.name} />
-                    </ListItemButton>
-                    <Divider />
-                  </ListItem>
-                )
-            })}
-          {/* <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-              <Avatar alt="death star" src={deathstar} />
-              </ListItemIcon>
-              <ListItemText primary="Character 1" />
-            </ListItemButton>
-          </ListItem>
-          <Divider /> */}
-          {/* <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-              <Avatar alt="death star" src={deathstar} />
-              </ListItemIcon>
-              <ListItemText primary="Character 2" />
-            </ListItemButton>
-          </ListItem>
-          <Divider /> */}
-        </List>
-      </nav>
-    </Box>
-  );
-}
+//     let editChar = (e) => {
+//         e.preventDefault();
+//         character.name = e.target.name.value;
+//         character.species = e.target.species.value;
+//         character.status = e.target.status.value;
+//         handleClose()
+//     }
+//   return (
+//     <Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+        
+//         <Modal
+//             open={open}
+//             onClose={handleClose}
+//             aria-labelledby="modal-modal-title"
+//             aria-describedby="modal-modal-description"
+//             >
+//                 <Box sx={style.modal}>
+//                     <Typography id="modal-modal-title" variant="h6" component="h2">
+//                     Edit Character
+//                     </Typography>
+//                     <form onSubmit={editChar} style={style.form}>
+//                         <InputLabel>Name</InputLabel>
+//                         <TextField size='small' name='name' defaultValue={character.name}/>
+//                         <InputLabel>Species</InputLabel>
+//                         <TextField size='small' name='species' defaultValue={character.species}/>
+//                         <InputLabel>Status</InputLabel>
+//                         <TextField size='small' name='status' defaultValue={character.status}/>
+//                         <Button style={style.button} variant='outlined' type='submit'>Edit</Button>
+//                     </form>
+//                 </Box>
+//             </Modal>
+//     </Box>
+//   );
+// }
+
+export {}
