@@ -1,0 +1,11 @@
+overwrite: true
+schema: "https://studio.apollographql.com/public/star-wars-swapi/schema/reference?variant=current"
+documents: "./src/components/**/*.{ts,tsx}"
+generates:
+  src/generated/graphql.tsx:
+    plugins: 
+      - 'typescript'
+      - 'typescript-operations'
+      - 'typescript-react-apollo'
+    config: 
+      withHooks: true
