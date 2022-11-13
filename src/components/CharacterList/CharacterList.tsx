@@ -2,7 +2,6 @@ import { Grid } from "@mui/material";
 import { CHARACTER_LIST } from "./query";
 import { useQuery } from "@apollo/client";
 import CharacterCard from "../CharacterCard/CharacterCard";
-import { useState } from "react";
 
 const CharacterList = () => {
   const { loading, error, data } = useQuery(CHARACTER_LIST);
@@ -12,17 +11,9 @@ const CharacterList = () => {
 
   return (
     <Grid container sx={{ marginTop: 8 }}>
-      {data.allPeople.people.slice(0, 16).map((character: any) => {
+      {data.allPeople.people.slice(0, 14).map((character: any) => {
         return (
-          <Grid
-            item
-            xs={12}
-            sm={6}
-            md={3}
-            key={character.id}
-            container
-            justifyContent="center"
-          >
+          <Grid item xs={12} sm={6} md={3} key={character.id} container justifyContent="center">
             <CharacterCard
               id={character.id}
               name={character.name}
