@@ -3,6 +3,8 @@ import PageHeader from './components/PageHeader/PageHeader';
 import CharacterList from './components/CharacterList/CharacterList';
 import { useState } from 'react';
 import { Box, Typography, Button, Modal, InputLabel, TextField } from "@mui/material";
+import { useQuery } from '@apollo/client';
+import { CHARACTER_LIST } from './components/CharacterList/query';
 
 const style = {
   fontFamily: "monospace",

@@ -72,13 +72,11 @@ function PageHeader() {
             <InputLabel style={style}>Name</InputLabel>
             <TextField size="small" name="name" defaultValue="" sx={{mb: 1}}/>
             <InputLabel style={style}>Birth Year</InputLabel>
-            <TextField size="small" name="species" defaultValue="" sx={{mb: 1}} />
+            <TextField size="small" name="birthYear" defaultValue="" sx={{mb: 1}} />
             <InputLabel style={style}>Mass(kg)</InputLabel>
-            <TextField size="small" name="species" defaultValue="" sx={{mb: 1}} />
+            <TextField size="small" name="mass" defaultValue="" sx={{mb: 1}} />
             <InputLabel style={style}>Height(cm)</InputLabel>
-            <TextField size="small" name="species" defaultValue="" sx={{mb: 1}} />
-            <InputLabel style={style}>Homeworld</InputLabel>
-            <TextField size="small" name="species" defaultValue="" sx={{mb: 1}} />
+            <TextField size="small" name="height" defaultValue="" sx={{mb: 1}} />
             <Box display="flex" justifyContent="flex-end" sx={{mt: 2}}>
             <Button variant="contained" type="submit" style={style.orangeButton}>
               CONFIRM CHARACTER CREATION

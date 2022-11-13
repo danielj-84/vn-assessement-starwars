@@ -11,16 +11,13 @@ export const CHARACTER_LIST = gql`
         height
         mass
         birthYear
-        homeworld {
-          name
-        }
       }
     }
   }
 `;
 
-// const CREATE_CHARACTER = gql`
-//   mutation CreateCharacter($id: String!) {
+// export const CREATE_CHARACTER = gql`
+//   mutation CreateCharacter($id: String!, $name: String!, $height: Number!, $mass: Number!, $birthYear:) {
 //     addCharacter(id: $id) {
 //       id
 //       name
@@ -63,7 +60,7 @@ export const CHARACTER_LIST = gql`
 //   }>;
 // };
 
-// client.writeQuery({
+// export const CREATECHAR = client.writeQuery({
 //   query: gql`
 //     query CreateCharacter($id: Int!) {
 //       character(id: $id) {
@@ -72,9 +69,6 @@ export const CHARACTER_LIST = gql`
 //         height
 //         mass
 //         birthYear
-//         homeworld {
-//           name
-//         }
 //       }
 //     }`,
 //   data: { // Contains the data to write
@@ -92,10 +86,18 @@ export const CHARACTER_LIST = gql`
 //   }
 // });
 
-export const DELETE_CHARACTER_MUTATION = gql`
-  mutation DeleteCharacter($id: String!) {
-    delete_character(id: $id) {
-        id
-    }
-  }
-`;
+// export const DELETE_CHARACTER_MUTATION = gql`
+//   mutation DeleteCharacter($id: String!) {
+//     delete_character(id: $id) {
+//         id
+//     }
+//   }
+// `;
+
+// export const ADD_CHARACTER = gql`
+//   mutation AddCharacter() {
+//     add_character() {
+
+//     }
+//   }
+// `
