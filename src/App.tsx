@@ -1,10 +1,7 @@
 import './App.css';
-import PageHeader from './components/PageHeader/PageHeader';
-import CharacterList from './components/CharacterList/CharacterList';
 import { useState } from 'react';
-import { Box, Typography, Button, Modal, InputLabel, TextField } from "@mui/material";
-import { useQuery } from '@apollo/client';
-import { CHARACTER_LIST } from './components/CharacterList/query';
+import CharacterList from './components/CharacterList/CharacterList';
+import { Box, Typography, Button, Modal } from "@mui/material";
 
 const style = {
   fontFamily: "monospace",
@@ -32,7 +29,6 @@ function App() {
 
   return (
     <div className="App">
-      <PageHeader />
       <CharacterList />
       <Modal open={open} onClose={handleClose}>
         <Box sx={style.modal}>

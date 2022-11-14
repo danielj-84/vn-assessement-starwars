@@ -1,11 +1,10 @@
-import { Grid } from "@mui/material";
 import { CHARACTER_LIST } from "./query";
 import { useQuery } from "@apollo/client";
 import CharacterCard from "../CharacterCard/CharacterCard";
 import { useEffect, useState } from "react";
-import { client } from "../../index";
 
 import {
+  Grid,
   Box,
   Card,
   CardContent,
@@ -15,6 +14,7 @@ import {
   InputLabel,
   TextField,
 } from "@mui/material";
+import PageHeader from "../PageHeader/PageHeader";
 
 const style = {
   fontFamily: "monospace",
@@ -38,10 +38,26 @@ const style = {
 
 const CharacterList = () => {
   const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
+  const handleOpen = (character: any) => {
+    setOpen(true);
+    setCharEdit(character);
+  };
   const handleClose = () => setOpen(false);
   const { loading, error, data } = useQuery(CHARACTER_LIST);
   const [characters, setCharacters] = useState<any>([]);
+  const [charEdit, setCharEdit] = useState<{
+    id: string;
+    name: string;
+    birthYear: string;
+    mass: number;
+    height: number;
+  }>({
+    id: "id",
+    name: "name",
+    birthYear: "birthYear",
+    mass: 0,
+    height: 0,
+  });
 
   useEffect(() => {
     if (data?.allPeople) {
@@ -49,7 +65,26 @@ const CharacterList = () => {
     }
   }, [data]);
 
-  const editCharacter = () => {};
+  const editCharacter = (e: any) => {
+    e.preventDefault();
+    let newList = [...characters];
+    let char = newList.findIndex((p: any) => p.id === e.target.id);
+
+    let newCharacter = {
+      id: newList.length + 1,
+      name: e.target.name.value,
+      birthYear: e.target.birthYear.value,
+      mass: e.target.mass.value,
+      height: e.target.height.value,
+    };
+    newList = characters.filter((char: any) => {
+      return char.id !== e.target.id;
+    });
+
+    newList.splice(char, 0, newCharacter);
+    setCharacters(newList);
+    handleClose();
+  };
 
   const handleDelete = (id: string) => {
     const newList = characters.filter((char: any) => {
@@ -63,130 +98,127 @@ const CharacterList = () => {
   if (!data) return <h1>Loading...</h1>;
 
   return (
-    <Grid container sx={{ marginTop: 8 }}>
-      {characters.map((character: any) => {
-        return (
-          <Grid
-            item
-            xs={12}
-            sm={6}
-            md={3}
-            key={character.id}
-            container
-            justifyContent="center"
-          >
-            {/* <CharacterCard
-              // characters={characters}
-              id={character.id}
-              name={character.name}
-              birthYear={character.birthYear}
-              mass={character.mass}
-              height={character.height}
-            /> */}
-            <Box sx={{ width: 260, textAlign: "center", margin: 2 }}>
-              <Card
-                variant="outlined"
-                sx={{ borderRadius: "10%", backgroundColor: "#f0ece1" }}
-              >
-                <CardContent>
-                  <Typography variant="h5" component="div" style={style}>
-                    {character.name}
+    <>
+      <PageHeader characters={characters} />
+      <Grid container sx={{ marginTop: 8 }}>
+        {characters.map((character: any) => {
+          return (
+            <Grid
+              item
+              xs={12}
+              sm={6}
+              md={3}
+              key={character.id}
+              container
+              justifyContent="center"
+            >
+              <Box sx={{ width: 260, textAlign: "center", margin: 2 }}>
+                <Card
+                  variant="outlined"
+                  sx={{ borderRadius: "10%", backgroundColor: "#f0ece1" }}
+                >
+                  <CardContent>
+                    <Typography variant="h5" component="div" style={style}>
+                      {character.name}
+                    </Typography>
+                    <Typography
+                      style={style}
+                      sx={{ mb: 1.5 }}
+                      color="text.secondary"
+                    >
+                      Birth: {character.birthYear}
+                    </Typography>
+                    <Typography variant="body2" style={style}>
+                      Mass: {character.mass}kg
+                    </Typography>
+                    <Typography variant="body2" style={style}>
+                      Height: {character.height}cm
+                    </Typography>
+                  </CardContent>
+                  <Box display="flex" justifyContent="space-around">
+                    <Button
+                      size="small"
+                      variant="text"
+                      sx={{ mb: 3, color: "#dd4e1e" }}
+                      onClick={() => {
+                        handleDelete(character.id);
+                      }}
+                    >
+                      Delete
+                    </Button>
+                    <Button
+                      size="small"
+                      variant="contained"
+                      style={style.orangeButton}
+                      sx={{ mb: 3 }}
+                      onClick={() => {
+                        handleOpen(character);
+                      }}
+                    >
+                      Edit
+                    </Button>
+                  </Box>
+                </Card>
+              </Box>
+              <Modal open={open} onClose={handleClose}>
+                <Box sx={style.modal}>
+                  <Typography variant="h6" component="h2" style={style}>
+                    Edit Character
                   </Typography>
-                  <Typography
-                    style={style}
-                    sx={{ mb: 1.5 }}
-                    color="text.secondary"
+                  <form
+                    style={{ display: "flex", flexDirection: "column" }}
+                    onSubmit={editCharacter}
+                    id={charEdit.id}
                   >
-                    Birth: {character.birthYear}
-                  </Typography>
-                  <Typography variant="body2" style={style}>
-                    Mass: {character.mass}kg
-                  </Typography>
-                  <Typography variant="body2" style={style}>
-                    Height: {character.height}cm
-                  </Typography>
-                </CardContent>
-                <Box display="flex" justifyContent="space-around">
-                  <Button
-                    size="small"
-                    variant="text"
-                    sx={{ mb: 3, color: "#dd4e1e" }}
-                    onClick={() => {
-                      handleDelete(character.id);
-                    }}
-                  >
-                    Delete
-                  </Button>
-                  <Button
-                    size="small"
-                    variant="contained"
-                    style={style.orangeButton}
-                    sx={{ mb: 3 }}
-                    onClick={handleOpen}
-                  >
-                    Edit
-                  </Button>
-                  
-                </Box>
-              </Card>
-            </Box>
-            <Modal open={open} onClose={handleClose}>
-                    <Box sx={style.modal}>
-                      <Typography variant="h6" component="h2" style={style}>
-                        Edit Character
-                      </Typography>
-                      <form
-                        style={{ display: "flex", flexDirection: "column" }}
-                        onSubmit={editCharacter}
+                    <InputLabel style={style}>Name</InputLabel>
+                    <TextField
+                      size="small"
+                      name="name"
+                      defaultValue={charEdit.name}
+                      sx={{ mb: 1 }}
+                    />
+                    <InputLabel style={style}>Birth Year</InputLabel>
+                    <TextField
+                      size="small"
+                      name="birthYear"
+                      defaultValue={charEdit.birthYear}
+                      sx={{ mb: 1 }}
+                    />
+                    <InputLabel style={style}>Mass(kg)</InputLabel>
+                    <TextField
+                      size="small"
+                      name="mass"
+                      defaultValue={charEdit.mass}
+                      sx={{ mb: 1 }}
+                    />
+                    <InputLabel style={style}>Height(cm)</InputLabel>
+                    <TextField
+                      size="small"
+                      name="height"
+                      defaultValue={charEdit.height}
+                      sx={{ mb: 1 }}
+                    />
+                    <Box
+                      display="flex"
+                      justifyContent="flex-end"
+                      sx={{ mt: 2 }}
+                    >
+                      <Button
+                        variant="contained"
+                        type="submit"
+                        style={style.orangeButton}
                       >
-                        <InputLabel style={style}>Name</InputLabel>
-                        <TextField
-                          size="small"
-                          name="name"
-                          defaultValue={character.name}
-                          sx={{ mb: 1 }}
-                        />
-                        <InputLabel style={style}>Birth Year</InputLabel>
-                        <TextField
-                          size="small"
-                          name="birthYear"
-                          defaultValue={character.birthYear}
-                          sx={{ mb: 1 }}
-                        />
-                        <InputLabel style={style}>Mass(kg)</InputLabel>
-                        <TextField
-                          size="small"
-                          name="mass"
-                          defaultValue={character.mass}
-                          sx={{ mb: 1 }}
-                        />
-                        <InputLabel style={style}>Height(cm)</InputLabel>
-                        <TextField
-                          size="small"
-                          name="height"
-                          defaultValue={character.height}
-                          sx={{ mb: 1 }}
-                        />
-                        <Box
-                          display="flex"
-                          justifyContent="flex-end"
-                          sx={{ mt: 2 }}
-                        >
-                          <Button
-                            variant="contained"
-                            type="submit"
-                            style={style.orangeButton}
-                          >
-                            SAVE CHANGES
-                          </Button>
-                        </Box>
-                      </form>
+                        SAVE CHANGES
+                      </Button>
                     </Box>
-                  </Modal>
-          </Grid>
-        );
-      })}
-    </Grid>
+                  </form>
+                </Box>
+              </Modal>
+            </Grid>
+          );
+        })}
+      </Grid>
+    </>
   );
 };
 

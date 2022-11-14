@@ -1,6 +1,7 @@
 import { AppBar, Box, Toolbar, Typography, Container, Button, Modal, InputLabel, TextField } from "@mui/material";
 import starwarslogo from "../../assets/starwarslogo.png";
 import { useState } from "react";
+import CharacterList from "../CharacterList/CharacterList";
 
 const style = {
   fontFamily: "monospace",
@@ -39,13 +40,26 @@ const style = {
   }
   }
 
-function PageHeader() {
+interface Props {
+  characters: {id: string, name: string, birthYear: string, mass: string, height: number }
+}
+
+
+const PageHeader: React.FC<Props> = ({ characters }) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const createCharacter = () => {
-
+  const createCharacter = (e: any) => {
+    let newCharacter = {
+      // id: characters.length + 1,
+      name: e.target.name.value,
+      birthYear: e.target.birthYear.value,
+      mass: e.target.mass.value,
+      height: e.target.height.value
+    }
+    // characters.push(newCharacter)
+    handleClose();
   }
 
   return (
