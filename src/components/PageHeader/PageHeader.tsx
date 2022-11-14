@@ -1,4 +1,4 @@
-import { AppBar, Box, Toolbar, Typography, Container, Button, Modal, InputLabel, TextField } from "@mui/material";
+import { AppBar, Box, Toolbar, Typography, Container, Button, Modal, InputLabel, Input } from "@mui/material";
 import starwarslogo from "../../assets/starwarslogo.png";
 import { useState } from "react";
 import { nanoid } from "nanoid";
@@ -40,9 +40,18 @@ const style = {
   },
 };
 
-interface Props {
-  handleAdd: (newCharacter: any) => void
+interface character {
+  id: string;
+  name: string;
+  birthYear: string;
+  mass: number;
+  height: number;
 }
+interface Props {
+  handleAdd: (newCharacter: character) => void
+}
+
+
 
 const PageHeader: React.FC<Props> = ({handleAdd}) => {
   const [open, setOpen] = useState(false);
@@ -102,29 +111,29 @@ const PageHeader: React.FC<Props> = ({handleAdd}) => {
             style={{ display: "flex", flexDirection: "column" }}
             onSubmit={createCharacter}
           >
-            <InputLabel style={style}>Name</InputLabel>
-            <TextField
+            <InputLabel style={style} sx={{mt: 2}}>Name</InputLabel>
+            <Input
               size="small"
               name="name"
               defaultValue=""
               sx={{ mb: 1 }}
             />
-            <InputLabel style={style}>Birth Year</InputLabel>
-            <TextField
+            <InputLabel style={style} sx={{mt: 2}}>Birth Year (BBY)</InputLabel>
+            <Input
               size="small"
               name="birthYear"
               defaultValue=""
               sx={{ mb: 1 }}
             />
-            <InputLabel style={style}>Mass(kg)</InputLabel>
-            <TextField
+            <InputLabel style={style} sx={{mt: 2}}>Mass(kg)</InputLabel>
+            <Input
               size="small"
               name="mass"
               defaultValue=""
               sx={{ mb: 1 }}
             />
-            <InputLabel style={style}>Height(cm)</InputLabel>
-            <TextField
+            <InputLabel style={style} sx={{mt: 2}}>Height(cm)</InputLabel>
+            <Input
               size="small"
               name="height"
               defaultValue=""
