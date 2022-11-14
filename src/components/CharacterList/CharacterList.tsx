@@ -36,9 +36,17 @@ const style = {
   },
 };
 
+interface character {
+    id: string;
+    name: string;
+    birthYear: string;
+    mass: number;
+    height: number;
+}
+
 const CharacterList = () => {
   const [open, setOpen] = useState(false);
-  const handleOpen = (character: any) => {
+  const handleOpen = (character: character) => {
     setCharEdit(character);
     setOpen(true);
   };
@@ -93,7 +101,7 @@ const CharacterList = () => {
     setCharacters(newList);
   };
 
-  const handleAdd = (newCharacter: any) => {
+  const handleAdd = (newCharacter: character) => {
     let newList = [...characters];
     newList.unshift(newCharacter);
     setCharacters(newList);
@@ -107,7 +115,7 @@ const CharacterList = () => {
     <>
       <PageHeader handleAdd={handleAdd} />
       <Grid container sx={{ marginTop: 8 }}>
-        {characters.map((character: any) => {
+        {characters.slice(0,20).map((character: character) => {
           return (
             <Grid
               item
