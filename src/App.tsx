@@ -1,5 +1,5 @@
-import './App.css';
 import { useState } from 'react';
+import './App.css';
 import CharacterList from './components/CharacterList/CharacterList';
 import { Box, Typography, Button, Modal } from "@mui/material";
 

@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
 import { CHARACTER_LIST } from "./query";
-import { Grid, Box, Card, CardContent, Button, Typography, Modal, InputLabel, TextField } from "@mui/material";
+import { Grid, Box, Card, CardContent, Button, Typography, Modal, InputLabel, TextField, Input } from "@mui/material";
 import PageHeader from "../PageHeader/PageHeader";
 
 const style = {
@@ -184,29 +184,29 @@ const CharacterList = () => {
                     onSubmit={handleEdit}
                     id={charEdit.id}
                   >
-                    <InputLabel style={style}>Name</InputLabel>
-                    <TextField
+                    <InputLabel style={style} sx={{mt: 2}}>Name</InputLabel>
+                    <Input
                       size="small"
                       name="name"
                       defaultValue={charEdit.name}
                       sx={{ mb: 1 }}
                     />
-                    <InputLabel style={style}>Birth Year</InputLabel>
-                    <TextField
+                    <InputLabel style={style} sx={{mt: 2}}>Birth Year</InputLabel>
+                    <Input
                       size="small"
                       name="birthYear"
                       defaultValue={charEdit.birthYear}
                       sx={{ mb: 1 }}
                     />
-                    <InputLabel style={style}>Mass(kg)</InputLabel>
-                    <TextField
+                    <InputLabel style={style} sx={{mt: 2}}>Mass(kg)</InputLabel>
+                    <Input
                       size="small"
                       name="mass"
                       defaultValue={charEdit.mass}
                       sx={{ mb: 1 }}
                     />
-                    <InputLabel style={style}>Height(cm)</InputLabel>
-                    <TextField
+                    <InputLabel style={style} sx={{mt: 2}}>Height(cm)</InputLabel>
+                    <Input
                       size="small"
                       name="height"
                       defaultValue={charEdit.height}
