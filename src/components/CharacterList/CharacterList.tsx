@@ -1,19 +1,7 @@
-import { CHARACTER_LIST } from "./query";
 import { useQuery } from "@apollo/client";
-import CharacterCard from "../CharacterCard/CharacterCard";
 import { useEffect, useState } from "react";
-
-import {
-  Grid,
-  Box,
-  Card,
-  CardContent,
-  Button,
-  Typography,
-  Modal,
-  InputLabel,
-  TextField,
-} from "@mui/material";
+import { CHARACTER_LIST } from "./query";
+import { Grid, Box, Card, CardContent, Button, Typography, Modal, InputLabel, TextField } from "@mui/material";
 import PageHeader from "../PageHeader/PageHeader";
 
 const style = {
@@ -34,13 +22,25 @@ const style = {
     color: "#080808",
     fontFamily: "monospace",
   },
+  whiteButton: {
+    backgroundColor: "#f0ece1",
+    width: 250,
+    height: 75,
+    fontWeight: 600,
+    color: "#080808",
+    fontFamily: "monospace",
+    "&:hover": {
+      backgroundColor: "#080808",
+      color: "#f0ece1",
+    },
+  },
 };
 
 const CharacterList = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = (character: any) => {
-    setOpen(true);
     setCharEdit(character);
+    setOpen(true);
   };
   const handleClose = () => setOpen(false);
   const { loading, error, data } = useQuery(CHARACTER_LIST);
@@ -65,13 +65,13 @@ const CharacterList = () => {
     }
   }, [data]);
 
-  const editCharacter = (e: any) => {
+  const handleEdit = (e: any) => {
     e.preventDefault();
     let newList = [...characters];
     let char = newList.findIndex((p: any) => p.id === e.target.id);
 
     let newCharacter = {
-      id: newList.length + 1,
+      id: e.target.id,
       name: e.target.name.value,
       birthYear: e.target.birthYear.value,
       mass: e.target.mass.value,
@@ -93,13 +93,19 @@ const CharacterList = () => {
     setCharacters(newList);
   };
 
+  const handleAdd = (newCharacter: any) => {
+    let newList = [...characters];
+    newList.unshift(newCharacter);
+    setCharacters(newList);
+  };
+
   if (loading) return <h1>Loading</h1>;
   if (error) return <h1>error</h1>;
   if (!data) return <h1>Loading...</h1>;
 
   return (
     <>
-      <PageHeader characters={characters} />
+      <PageHeader handleAdd={handleAdd} />
       <Grid container sx={{ marginTop: 8 }}>
         {characters.map((character: any) => {
           return (
@@ -167,7 +173,7 @@ const CharacterList = () => {
                   </Typography>
                   <form
                     style={{ display: "flex", flexDirection: "column" }}
-                    onSubmit={editCharacter}
+                    onSubmit={handleEdit}
                     id={charEdit.id}
                   >
                     <InputLabel style={style}>Name</InputLabel>
